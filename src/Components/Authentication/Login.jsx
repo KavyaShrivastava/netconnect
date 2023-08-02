@@ -3,35 +3,36 @@ import { loginFields } from "../../constants/formFields";
 import Input from "./Input";
 import { loginErrorModalFields } from '../../constants/modalFields';
 import Modal from '../ModalTemplate';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 // Create a new constant 'fields' and assign it the value of 'loginFields'
-const fields = loginFields;
+const fields = loginFields
 
 // Create an empty object 'fieldsState' to store the initial state of form fields
-const fieldsState = {};
+const fieldsState = {}
 
 // Populate the 'fieldsState' object with each field from the 'fields' array,
 // setting their initial values to an empty string
-fields.forEach(field => { fieldsState[field.id] = "" });
+fields.forEach(field => { fieldsState[field.id] = "" })
 
 // Log the 'fieldsState' object to the console for debugging purposes
-console.log(fieldsState);
 
 // Define a new functional component called 'LogIn'
 const LogIn = () => {
     // Declare a state variable 'loginState' using the 'useState' hook,
     // initialized with the 'fieldsState' object as its initial value
-    const [loginState, setLoginState] = useState(fieldsState);
-    const [showModal, setShowModal] = useState(false);
+    const [loginState, setLoginState] = useState(fieldsState)
+    const [showModal, setShowModal] = useState(false)
+    const navigate = useNavigate(); // Get the navigation function
+
 
 
     // Define a function 'handleChange' to handle changes in the form fields
     const handleChange = (e) => {
         // Update the 'loginState' with the new value entered in the form field,
         // using the 'id' of the input element as the key and the entered value as the value
-        setLoginState({ ...loginState, [e.target.id]: e.target.value });
+        setLoginState({ ...loginState, [e.target.id]: e.target.value })
 
         // Log the updated 'loginState' to the console for debugging purposes
         console.log(loginState);
@@ -65,6 +66,8 @@ const LogIn = () => {
                 // Parse the response body as JSON and store the 'token' value in the local storage
                 const data = await response.json();
                 localStorage.setItem("token", data.token);
+                navigate("/dashboard")
+                
             } else {
                 // If the response status is not 2xx, an error occurred, so display the modal
                 setShowModal(true);
