@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-const EditableField = ({labelName, labelText, defaultValue}) => {
+const EditableField = ({labelName, labelText, defaultValue, onUpdate}) => {
 
     const [isEditable, setIsEditable] = useState(false);
     const [value, setValue] = useState(null);
@@ -19,6 +19,7 @@ const EditableField = ({labelName, labelText, defaultValue}) => {
 
     const handleInputBlur = () => {
         setIsEditable(false);
+        onUpdate(value);
     };
 
     return(
@@ -31,7 +32,7 @@ const EditableField = ({labelName, labelText, defaultValue}) => {
             value={value}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
-            className="border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            className="border border-gray-400 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-black"/>
             )
             :
             (<div
