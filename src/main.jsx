@@ -4,7 +4,7 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <div className='bg-black text-white'>
+    <div className='text-white overflow-scroll bg-black'>
     <App />
     </div>
 );

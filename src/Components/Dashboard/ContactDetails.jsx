@@ -6,10 +6,6 @@ const ContactDetails = ({ contact }) => {
   const [updatedContact, setUpdatedContact] = useState(contact);
   console.log("Contact prop:", contact);
 
-  useEffect(() => {
-    setUpdatedContact(contact);
-  }, [contact]);
-
   const handleUpdate = async () => {
     if (update) {
       // Only proceed if the button text is "Save" (i.e., update is true).
@@ -50,10 +46,12 @@ const ContactDetails = ({ contact }) => {
   };
   
   const handleContactUpdate = (fieldName, fieldValue) => {
+    console.log(fieldName + " " + fieldValue);
     setUpdatedContact((prevContact) => ({
       ...prevContact,
       [fieldName]: fieldValue,
     }));
+    console.log(updatedContact)
   };
 
   const handleToggleUpdate = () => {
@@ -63,88 +61,96 @@ const ContactDetails = ({ contact }) => {
   //firstName, lastName, email, company, linkedIn, phone, occupation
 
   return (
-    <div className="flex flex-col border p-2 border-yellow-500 min-w-full rounded-2xl mt-8">
+    <div className="flex flex-col border p-2 border-gray-700 shadow-lg shadow-violet-900 min-w-full rounded-md mt-8 bg-black">
       {update ? (
-        <div>
+        <div className="pl-3 pt-2">
         <EditableField
           labelName={`firstName-${contact._id}`}
           labelText="First Name:"
-          defaultValue={contact.firstName}
+          defaultValue={updatedContact.firstName}
           onUpdate={(value) => handleContactUpdate("firstName", value)}
 
         />
         <EditableField
           labelName={`lastName-${contact._id}`}
           labelText="Last Name:"
-          defaultValue={contact.lastName}
+          defaultValue={updatedContact.lastName}
           onUpdate={(value) => handleContactUpdate("lastName", value)}
 
         />
          <EditableField
           labelName={`email-${contact._id}`}
           labelText="Email:"
-          defaultValue={contact.email}
+          defaultValue={updatedContact.email}
           onUpdate={(value) => handleContactUpdate("email", value)}
 
         />
         <EditableField
           labelName={`linkedIn-${contact._id}`}
           labelText="LinkedIn:"
-          defaultValue={contact.linkedIn}
+          defaultValue={updatedContact.linkedIn}
           onUpdate={(value) => handleContactUpdate("linkedIn", value)}
 
         />
          <EditableField
           labelName={`company-${contact._id}`}
           labelText="Company:"
-          defaultValue={contact.company}
+          defaultValue={updatedContact.company}
           onUpdate={(value) => handleContactUpdate("company", value)}
 
         />
          <EditableField
           labelName={`occupation-${contact._id}`}
           labelText="Occupation:"
-          defaultValue={contact.occupation}
+          defaultValue={updatedContact.occupation}
           onUpdate={(value) => handleContactUpdate("occupation", value)}
 
         />
           <EditableField
           labelName={`phone-${contact._id}`}
           labelText="Phone:"
-          defaultValue={contact.phone}
+          defaultValue={updatedContact.phone}
           onUpdate={(value) => handleContactUpdate("phone", value)}
         />
         </div>
       ) : (
-        <div className="flex flex-col pl-3 pt-2 gap-2">
-          <p>Email: {contact.email}</p>
+        <div className="flex flex-col py-2 gap-2 pl-4">
+          <p>Email: {updatedContact.email}</p>
           <p>
             LinkedIn:{" "}
             <a
-              href={contact.linkedin}
-              className="text-blue-500 underline hover:no-underline"
+              href={updatedContact.linkedin}
+              className="text-blue-500 underline hover:no-underline cursor-pointer"
             >
-              {contact.linkedIn}
+              {updatedContact.linkedIn}
             </a>
           </p>
           <p>
-            Occupation: {contact.occupation}
+            Occupation: {updatedContact.occupation}
           </p>
           <p>
-            Company: {contact.company}
+            Company: {updatedContact.company}
           </p>
           <p>
-            Phone: {contact.phone}
+            Phone: {updatedContact.phone}
           </p>
         </div>
       )}
-      <div className="flex justify-end mt-4">
+      <div className="flex flex-row justify-end mt-4">
         <button
           onClick={update ? handleUpdate : handleToggleUpdate}
-          className="px-4 py-2 text-white rounded-3xl cursor-pointer border border-white hover:bg-yellow-300 hover:text-black"
+          className="px-4 py-2 text-white  rounded-3xl cursor-pointer border border-white hover:bg-lime-300 hover:text-black"
         >
           {update ? "Save" : "Update"}
+        </button> 
+        {update && (
+        <button
+          onClick={handleToggleUpdate}
+          className="px-4 py-2 mr-2 text-white rounded-3xl cursor-pointer border border-white hover:bg-lime-300 hover:text-black"
+        >
+          Cancel
         </button>
+      )}   
       </div>
     </div>
   );

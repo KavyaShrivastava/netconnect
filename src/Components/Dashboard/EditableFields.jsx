@@ -24,7 +24,7 @@ const EditableField = ({labelName, labelText, defaultValue, onUpdate}) => {
 
     return(
         <div>
-            <label htmlFor= {labelName} className="block text-gray-700 font-bold mb-2">{labelText}</label>
+            <label htmlFor= {labelName} className="block text-white font-bold mb-2">{labelText}</label>
             {isEditable? (
             <input
             type="text"
@@ -32,12 +32,12 @@ const EditableField = ({labelName, labelText, defaultValue, onUpdate}) => {
             value={value}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
-            className="border border-gray-400 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-black"/>
+            className= " border border-violet-800 rounded-xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-black h-full"/>
             )
             :
             (<div
                 onClick={handleInputClick}
-                className="border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight cursor-pointer"
+                className="rounded-xl w-full py-2 px-3 h-9 text-gray-700 leading-tight cursor-pointer"
               >
                 {value}
               </div>)}
