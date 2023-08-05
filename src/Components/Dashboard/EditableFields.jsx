@@ -32,12 +32,12 @@ const EditableField = ({labelName, labelText, defaultValue, onUpdate}) => {
             value={value}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
-            className= " border border-violet-800 rounded-xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-black h-full"/>
+            className= " border border-violet-800 rounded-xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-black h-full mb-4"/>
             )
             :
             (<div
                 onClick={handleInputClick}
-                className="rounded-xl w-full py-2 px-3 h-9 text-gray-700 leading-tight cursor-pointer"
+                className="rounded-xl w-full py-2 px-3 h-9 text-gray-700 leading-tight cursor-pointer mb-4"
               >
                 {value}
               </div>)}
