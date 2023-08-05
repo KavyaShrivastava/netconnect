@@ -35,7 +35,6 @@ const LogIn = () => {
         setLoginState({ ...loginState, [e.target.id]: e.target.value })
 
         // Log the updated 'loginState' to the console for debugging purposes
-        console.log(loginState);
     }
 
     // Define a function 'handleSubmit' to handle the form submission
