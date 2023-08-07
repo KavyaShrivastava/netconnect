@@ -11,8 +11,6 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
   const [occupation, setOccupation] = useState("");
   const [phone, setPhone] = useState("");
 
-
-
   const handleOnClickCancel = () => {
     setDisplayNewContactForm(false);
   };
@@ -45,7 +43,9 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
             body: JSON.stringify(newContact),
         })
         if(response.ok){
-          setNewContact(newContact); // Assuming the server returns the created contact
+          const data = await response.json();
+          const createdContact = data.contact;
+          setNewContact({ ...createdContact }); // Assuming the server returns the created contact
           setDisplayNewContactForm(false);
           setCreatedContactIsClicked(true)
         }
@@ -58,7 +58,7 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
 
   return (
     <>
-      <div className="flex flex-col self-center border p-2 border-gray-700 shadow-lg shadow-lime-700 lg:w-1/3 rounded-md mt-8 bg-black">
+      <div className="flex flex-col self-center border p-2 border-gray-700 shadow-lg shadow-lime-700 lg:w-1/3 w-full md:w-3/4 rounded-md mt-8 bg-black">
         <div className="pl-3 pt-2">
           <EditableField
             labelName={`firstName`}

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import EditableField from "./EditableFields";
-import TasksButton from "./Tasks/TasksButton";
+import Tasks from "./Tasks/Tasks";
 
-const ContactDetails = ({ contact }) => {
+const ContactDetails = ({ contact , onContactUpdate}) => {
   const [update, setUpdate] = useState(false);
   const [updatedContact, setUpdatedContact] = useState(contact);
-  console.log("Contact prop:", contact);
+  const [displayContactTask, setDisplayContactTask] = useState(true);
 
   const handleUpdate = async () => {
     if (update) {
@@ -30,8 +30,8 @@ const ContactDetails = ({ contact }) => {
         const updatedContactData = await response.json();
 
         // Update the updatedContact state with the new data received from the server.
-        setUpdatedContact(updatedContactData.contact);
-  
+        onContactUpdate(updatedContactData.contact)
+      
         // If the request is successful, set the update state to false.
         setUpdate(false);
       } catch (error) {
@@ -60,7 +60,7 @@ const ContactDetails = ({ contact }) => {
   //firstName, lastName, email, company, linkedIn, phone, occupation
 
   return (
-    <div className="flex flex-col border p-2 border-gray-700 shadow-lg shadow-violet-900 min-w-full rounded-2xl mt-8 bg-black">
+    <div className="flex flex-col border p-2 border-lime-700 shadow-md shadow-lime-400 min-w-full rounded-2xl mt-8 bg-black">
       {update ? (
         <div className="pl-3 pt-2">
         <EditableField
@@ -113,8 +113,10 @@ const ContactDetails = ({ contact }) => {
         />
         </div>
       ) : (
-        <div className="flex flex-col py-2 gap-2 pl-4">
-          <TasksButton />
+        <div>
+        <Tasks contact={contact} setDisplayContactTask={setDisplayContactTask} />
+        {displayContactTask && (
+          <div className="flex flex-col py-2 gap-2 pl-4 text-white">
           <p>Email: {updatedContact.email}</p>
           <p>
             LinkedIn:{" "}
@@ -135,23 +137,27 @@ const ContactDetails = ({ contact }) => {
             Phone: {updatedContact.phone}
           </p>
         </div>
+        )}
+        </div>
       )}
+      {displayContactTask && (
       <div className="flex flex-row justify-end mt-4 mr-2">
         <button
           onClick={update ? handleUpdate : handleToggleUpdate}
-          className="px-4 py-2 text-white  rounded-3xl cursor-pointer border border-white hover:bg-lime-300 hover:text-black mb-3"
+          className="px-4 py-2 text-white  rounded-3xl cursor-pointer border border-white hover:bg-indigo-400 hover:text-black mb-3"
         >
           {update ? "Save" : "Update"}
         </button> 
         {update && (
         <button
           onClick={handleToggleUpdate}
-          className="px-4 py-2 mr-2 text-white rounded-3xl cursor-pointer border border-white hover:bg-lime-300 hover:text-black mb-3"
+          className="px-4 py-2 mr-2 text-white rounded-3xl cursor-pointer border border-white hover:bg-indigo-400 hover:text-black mb-3"
         >
           Cancel
         </button>
       )}   
       </div>
+      )}
     </div>
   );
 };

@@ -50,8 +50,8 @@ const Header = () => {
   return (
     <>
     <div className='flex flex-col items-center w-full'>
-      <div className='flex flex-row justify-between items-center bg-zinc-700 bg-opacity-80 lg:w-1/3 w-full h-20 px-9 shadow-lg shadow-neutral-800'>
-        <h1 className='mr-4 font-bold text-xl text-fuchsia-400'>All Contacts</h1>
+      <div className='flex flex-row justify-between items-center bg-black bg-opacity-80 lg:w-1/3 w-full h-20 px-9 shadow-lg shadow-neutral-800'>
+        <h1 className='mr-4 font-bold text-xl text-orange-400'>All Contacts</h1>
         <button
           className='text-white rounded-full p-3 shadow-lg shadow-gray-950 border border-gray-700 focus:outline-none transform hover:scale-110 transition-transform duration-300 '
           onClick={handleNewContact}
@@ -64,7 +64,7 @@ const Header = () => {
         <CreateContact setDisplayNewContactForm={setDisplayNewContactForm} setNewContact={setNewContact} setCreatedContactIsClicked = {setCreatedContactIsClicked}/>
       )}
       <div className= "flex-grow">
-        <DisplayContacts contacts={contacts}/>
+        <DisplayContacts contacts={contacts} setContacts={setContacts}/>
       </div>
       </>
 
