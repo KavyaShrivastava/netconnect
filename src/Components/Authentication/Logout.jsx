@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutButton = () => {
@@ -10,11 +10,14 @@ const LogoutButton = () => {
     setTokenRemoved(true);
   };
 
-  if (isTokenRemoved) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (isTokenRemoved) {
+      navigate('/');
+    }
+  }, [isTokenRemoved, navigate]);
 
-  return <button onClick={handleLogout}>LogOut</button>;
+
+  return <button onClick={handleLogout} className='w-fit h-fit'>LogOut</button>;
 };
 
 export default LogoutButton;

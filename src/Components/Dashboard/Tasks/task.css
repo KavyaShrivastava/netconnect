@@ -1,0 +1,8 @@
+.custom-datetime-picker-text .MuiInputBase-input {
+    color: white;
+  }
+  
+
+.custom-field .MuiDateTimePickerToolbar-root{
+    color: azure;
+}

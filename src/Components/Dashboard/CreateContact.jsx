@@ -45,7 +45,8 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
         if(response.ok){
           const data = await response.json();
           const createdContact = data.contact;
-          setNewContact({ ...createdContact }); // Assuming the server returns the created contact
+          console.log(createdContact)
+          setNewContact(createdContact) // Assuming the server returns the created contact
           setDisplayNewContactForm(false);
           setCreatedContactIsClicked(true)
         }
@@ -58,7 +59,7 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
 
   return (
     <>
-      <div className="flex flex-col self-center border p-2 border-gray-700 shadow-lg shadow-lime-700 lg:w-1/3 w-full md:w-3/4 rounded-md mt-8 bg-black">
+      <div className="flex flex-col self-center border p-2 border-gray-700 shadow-lg shadow-indigo-700 lg:w-1/3 w-full md:w-3/4 rounded-md mt-8 bg-transparent">
         <div className="pl-3 pt-2">
           <EditableField
             labelName={`firstName`}
@@ -108,14 +109,14 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
         <div className="flex items-end justify-end mb-3">
           <button
             onClick={handleOnClickCancel}
-            className="px-4 py-2 rounded-3xl cursor-pointer border border-white bg-lime-300 text-black transform hover:scale-105 duration-300 ease-out mr-2"
+            className="px-4 py-2 rounded-3xl cursor-pointer border border-white bg-white text-black transform hover:scale-105 duration-300 ease-out mr-2"
           >
             Cancel
           </button>
 
           <button
             onClick={handleCreateContact}
-            className="px-4 py-2 rounded-3xl cursor-pointer border border-white bg-lime-300 text-black transform hover:scale-105 duration-300 ease-out"
+            className="px-4 py-2 rounded-3xl cursor-pointer border border-white bg-white text-black transform hover:scale-105 duration-300 ease-out"
           >
             Create Contact
           </button>

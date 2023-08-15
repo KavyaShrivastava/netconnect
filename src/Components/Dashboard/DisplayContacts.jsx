@@ -40,10 +40,10 @@ const DisplayContacts = ({contacts, setContacts}) => {
   return (
     <>
       <div className="flex flex-grow items-center justify-center">
-        <div className="flex flex-col items-center w-full md:w-full lg:w-1/3 overflow-x-clip h-screen shadow-md bg-neutral-900">
-          {contacts.map((contact) => (
-            <div key={contact._id} className="p-4 mt-2 min-w-full">
-              <div className="border border-neutral-700 shadow-md shadow-lime-600 bg-black text-gray-200 rounded-2xl min-w-full h-12 cursor-pointer flex items-center justify-between p-4">
+        <div className="flex flex-col items-center w-full md:w-full lg:w-1/3 overflow-x-clip  bg-transparent">
+          {contacts.map((contact, index) => (
+            <div key={contact._id} className= "p-4 mt-2 min-w-full">
+              <div className= {`bg-zinc-900 shadow-md bg-opacity-90 text-white rounded-2xl min-w-full h-12 cursor-pointer flex items-center justify-between p-4 border border-black ${index % 4 ===0 ? "shadow-fuchsia-500" : index % 4 === 1 ? "shadow-orange-200 " : index % 4 === 2? "shadow-indigo-400" : 'shadow-green-400'}`}>
               <button onClick={() => handleContactClick(contact)} className="w-full">
               <div className="flex items-center">
                 <div className="mr-2">
@@ -58,14 +58,14 @@ const DisplayContacts = ({contacts, setContacts}) => {
                 </div>
               </div>
               </button>
-              <button className="border border-gray-700 shadow-md shadow-indigo-400 rounded-full hover:transform hover:scale-110 p-1"
+              <button className="border border-black shadow-md rounded-full hover:transform hover:scale-110 p-1"
                 onClick={(e) => handleDeleteClick(e, contact)}>
                 <IoIosTrash size={21} /> {/* Trash icon */}
               </button>
             </div>             
               <div>
                 {selectedContact && selectedContact._id === contact._id && (
-                  <ContactDetails contact={contact} onContactUpdate={handleContactUpdate}  />
+                  <ContactDetails contact={contact} onContactUpdate={handleContactUpdate} index = {index} />
                 )}
               </div>
             </div>

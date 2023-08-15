@@ -1,11 +1,15 @@
 import React from "react";
-import DisplayContacts from "./DisplayContacts";
 import Header from "./Header";
+import LogoutButton from "../Authentication/Logout";
+
 
 const Dashboard = () => {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex flex-col h-screen">
+       <LogoutButton />
+      <div className="flex flex-col h-max w-full">
       <Header />
+      </div>
     </div>
   );
 };

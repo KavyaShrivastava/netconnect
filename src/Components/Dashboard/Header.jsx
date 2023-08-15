@@ -2,12 +2,13 @@ import { FaPlus } from 'react-icons/fa';
 import CreateContact from './CreateContact';
 import { useState, useEffect } from 'react';
 import DisplayContacts from './DisplayContacts';
+import LogoutButton from '../Authentication/Logout';
 
 const Header = () => {
 
   const [displayNewContact, setDisplayNewContactForm] = useState(false)
   const [createdContactIsClicked, setCreatedContactIsClicked] = useState(false);
-  const [newContact, setNewContact] = useState([]);
+  const [newContact, setNewContact] = useState(null);
   const [contacts, setContacts] = useState([]);
 
 
@@ -43,27 +44,28 @@ const Header = () => {
     if (createdContactIsClicked) {
       setContacts((prevContacts) => [...prevContacts, newContact]);
       setDisplayNewContactForm(false)
-      setCreatedContactIsClicked(false) // Reset the flag
+      setCreatedContactIsClicked(false)
+      setNewContact([]); // Reset the flag
     }
   }, [createdContactIsClicked, newContact, contacts]);
 
   return (
     <>
     <div className='flex flex-col items-center w-full'>
-      <div className='flex flex-row justify-between items-center bg-black bg-opacity-80 lg:w-1/3 w-full h-20 px-9 shadow-lg shadow-neutral-800'>
-        <h1 className='mr-4 font-bold text-xl text-orange-400'>All Contacts</h1>
+      <div className='flex flex-row justify-between items-center bg-black lg:w-1/3 w-full h-20 pl-6 rounded-2xl shadow-lg shadow-indigo-900 pr-6 focus:outline-none'>
+        <h1 className='mr-4 text-xl text-white'>All Connections</h1>
         <button
-          className='text-white rounded-full p-3 shadow-lg shadow-gray-950 border border-gray-700 focus:outline-none transform hover:scale-110 transition-transform duration-300 '
+          className='text-white rounded-full p-3 shadow-lg border border-gray-700 focus:outline-none transform hover:scale-110 transition-transform duration-300 '
           onClick={handleNewContact}
         >          
-        <FaPlus size={16} />
+        <FaPlus size={14} />
         </button>
       </div>
       </div>
       {displayNewContact  && (
         <CreateContact setDisplayNewContactForm={setDisplayNewContactForm} setNewContact={setNewContact} setCreatedContactIsClicked = {setCreatedContactIsClicked}/>
       )}
-      <div className= "flex-grow">
+      <div className= "flex-grow focus:outline-none">
         <DisplayContacts contacts={contacts} setContacts={setContacts}/>
       </div>
       </>
