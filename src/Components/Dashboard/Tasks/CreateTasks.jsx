@@ -75,7 +75,7 @@ const CreateTasks = ({ contact, handleTaskCreation, showCreateTaskForm, setShowC
                     id="message"
                     value={message}
                     onChange={handleInputChange}
-                    className="bg-transparent border border-white rounded-xl w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline h-full mb-4"
+                    className="bg-transparent border border-white rounded-xl py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline h-auto mb-4"
                 />
                 <div className="flex flex-row  justify-between">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
