@@ -1,8 +1,11 @@
 import { useState } from "react";
 import EditableField from "./EditableFields";
 
-const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedContactIsClicked}) => {
-
+const CreateContact = ({
+  setDisplayNewContactForm,
+  setNewContact,
+  setCreatedContactIsClicked,
+}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,28 +36,29 @@ const CreateContact = ({ setDisplayNewContactForm, setNewContact, setCreatedCont
       phone,
     };
 
-    try{
-        const response = await fetch ("http://localhost:8000/api/v1/contact/create", {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            body: JSON.stringify(newContact),
-        })
-        if(response.ok){
-          const data = await response.json();
-          const createdContact = data.contact;
-          console.log(createdContact)
-          setNewContact(createdContact) // Assuming the server returns the created contact
-          setDisplayNewContactForm(false);
-          setCreatedContactIsClicked(true)
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/contact/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify(newContact),
         }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        const createdContact = data.contact;
+        console.log(createdContact);
+        setNewContact(createdContact); // Assuming the server returns the created contact
+        setDisplayNewContactForm(false);
+        setCreatedContactIsClicked(true);
+      }
+    } catch (err) {
+      console.error("Error occurred while creating contact:", err);
     }
-    catch(err){
-        console.error("Error occurred while creating contact:", err);
-    }
-
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateTasks from "./CreateTasks";
-import "./task.css"
+import "./task.css";
 import TaskEdit from "./TaskEdit";
 import TaskDisplay from "./TaskDisplay";
 import TaskCompletionButton from "./TaskCompletionButton";
@@ -23,36 +23,37 @@ const Tasks = ({ contact, setDisplayContactTask }) => {
   } = useTasks(contact);
 
   const [tasksButton, setTasksButtonIsClicked] = useState(false);
-  const [showCreateTaskForm, setShowCreateTaskForm] = useState(false)
+  const [showCreateTaskForm, setShowCreateTaskForm] = useState(false);
 
-useEffect(() => {
-  const fetchTasks = async () => {
-    try {
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
         const fetchedTasks = await getTasks(contact._id);
         setTasks(fetchedTasks);
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
     fetchTasks();
-  }, [contact])
+  }, [contact]);
 
-const handleClickTasksOn = () => {
-  setDisplayContactTask(false);
-  setTasksButtonIsClicked(true);
-};
+  const handleClickTasksOn = () => {
+    setDisplayContactTask(false);
+    setTasksButtonIsClicked(true);
+  };
 
-const handleClickTasksOff = () => {
+  const handleClickTasksOff = () => {
     setDisplayContactTask(true);
     setTasksButtonIsClicked(false);
-};
+  };
 
-const handleTaskCompletionToggle = async(taskId) => {
+  const handleTaskCompletionToggle = async (taskId) => {
     const updatedTasks = tasks.map((task) =>
-        task._id === taskId ? { ...task, isCompleted: !task.isCompleted } : task);
+      task._id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+    );
     setTasks(updatedTasks);
 
-    const updatedTask = updatedTasks.find(task => task._id === taskId);
+    const updatedTask = updatedTasks.find((task) => task._id === taskId);
     try {
       await updateTaskOnServer(updatedTask);
     } catch (error) {
@@ -69,41 +70,50 @@ const handleTaskCompletionToggle = async(taskId) => {
 
   return (
     <>
-       {tasksButton ? (
+      {tasksButton ? (
         <div className="">
-        <BackToContact handleClickTasksOff={handleClickTasksOff}/>
           {reversedTasks.map((task) => (
             <div
-                key={task._id}
-                className={`flex flex-row min-w-full mb-3 ${
+              key={task._id}
+              className={`flex flex-row min-w-full mb-3 ${
                 editTaskId === task._id ? "cursor-auto" : "cursor-pointer"
-                }`}>
-            <TaskCompletionButton task = {task} handleTaskCompletionToggle={handleTaskCompletionToggle}/>            
-          {editTaskId === task._id ? 
-          (
-            <TaskEdit
-            task={task}
-            handleTaskMessageChange={handleTaskMessageChange}
-            handleTaskReminderChange={handleTaskReminderChange}
-            handleSaveTask={updateTaskOnServerAndExitEdit}
-          />//edit mode
-          ) : 
-          (
-            <div className="flex flex-row justify-between items-center">
-              <TaskDisplay task = {task} handleEditTask={handleEditTask}/>
-              <div className="flex items-center">
-                <TaskDeletionButton task = {task} deleteTask={handleDeleteTask}/>
-              </div>
+              }`}
+            >
+              {editTaskId === task._id ? (
+                <TaskEdit
+                  task={task}
+                  handleTaskMessageChange={handleTaskMessageChange}
+                  handleTaskReminderChange={handleTaskReminderChange}
+                  handleSaveTask={updateTaskOnServerAndExitEdit}
+                /> //edit mode
+              ) : (
+                <>
+                  <div className="flex flex-grow justify-end items-center">
+                    <TaskCompletionButton
+                      task={task}
+                      handleTaskCompletionToggle={handleTaskCompletionToggle}
+                    />
+                    <TaskDisplay task={task} handleEditTask={handleEditTask} />
+                    <TaskDeletionButton
+                      task={task}
+                      deleteTask={handleDeleteTask}
+                    />
+                  </div>
+                </>
+              )}
             </div>
-
-          )}
-        </div>
-        ))}
-            <CreateTasks contact={contact} handleTaskCreation={handleTaskCreation} showCreateTaskForm={showCreateTaskForm} setShowCreateTaskForm={setShowCreateTaskForm}/>
+          ))}
+          <CreateTasks
+            contact={contact}
+            handleTaskCreation={handleTaskCreation}
+            showCreateTaskForm={showCreateTaskForm}
+            setShowCreateTaskForm={setShowCreateTaskForm}
+          />
+          <BackToContact handleClickTasksOff={handleClickTasksOff} />
         </div>
       ) : (
         <TasksButton handleClickTasksOn={handleClickTasksOn} />
-      )} 
+      )}
     </>
   );
 };

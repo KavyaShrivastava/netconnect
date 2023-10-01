@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve --mode development",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -19,6 +19,7 @@
     "antd": "^5.8.2",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
     "firebase": "^10.0.0",
     "formik": "^2.4.3",
     "jsonwebtoken": "^9.0.1",

@@ -6,7 +6,7 @@ const ContactsComponent = () => {
 
   const getAllContacts = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/contact", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
