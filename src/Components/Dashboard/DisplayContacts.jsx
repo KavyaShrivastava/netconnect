@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ContactsComponent from "./GetAllContacts";
 import ContactDetails from "./ContactDetails";
 import { FiArrowRight, FiArrowDown} from "react-icons/fi";
@@ -16,11 +16,12 @@ const DisplayContacts = ({contacts, setContacts}) => {
     );
   };
 
-  const handleContactUpdate = (updatedContact) => {
-    setContacts((prevContacts) =>
+const handleContactUpdate = useCallback((updatedContact) => {
+  setContacts((prevContacts) =>
     prevContacts.map((c) => (c._id === updatedContact._id ? updatedContact : c))
-  )
-  }
+  );
+}, [setContacts]);
+
   
   const handleDeleteClick = async (e, contact) => {
     e.stopPropagation();
