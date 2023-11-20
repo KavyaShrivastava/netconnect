@@ -14,6 +14,17 @@ const CreateContact = ({
   const [occupation, setOccupation] = useState("");
   const [phone, setPhone] = useState("");
 
+  const fields = [
+    {name: 'firstName', label: 'First Name:', state: [firstName, setFirstName] },
+    {name: 'lastName', label: 'Last Name:', state: [lastName, setLastName]},
+    {name: 'email', label: 'Email', state: [email, setEmail]},
+    {name: 'linkedIn', label: 'LinkedIn', state: [linkedIn, setLinkedIn]},
+    {name: 'company', label: 'Company', state: [company, setCompany]},
+    {name: 'occupation', label: 'Occupation', state: [occupation, setOccupation]},
+    {name: 'phone', label: 'Phone', state: [phone, setPhone]}
+    
+  ]
+
   const handleOnClickCancel = () => {
     setDisplayNewContactForm(false);
   };
@@ -65,50 +76,15 @@ const CreateContact = ({
     <>
       <div className="flex flex-col self-center border p-2 border-gray-700 shadow-lg shadow-indigo-700 lg:w-1/3 w-full md:w-3/4 rounded-md mt-8 bg-transparent">
         <div className="pl-3 pt-2">
-          <EditableField
-            labelName={`firstName`}
-            labelText="First Name:"
-            defaultValue={firstName}
-            onUpdate={setFirstName}
-          />
-          <EditableField
-            labelName={`lastName`}
-            labelText="Last Name:"
-            defaultValue={lastName}
-            onUpdate={setLastName}
-          />
-          <EditableField
-            labelName={`email`}
-            labelText="Email:"
-            defaultValue={email}
-            onUpdate={setEmail}
-          />
-          <EditableField
-            labelName={`linkedIn`}
-            labelText="LinkedIn:"
-            defaultValue={linkedIn}
-            onUpdate={setLinkedIn}
-          />
-          <EditableField
-            labelName={`company`}
-            labelText="Company:"
-            defaultValue={company}
-            onUpdate={setCompany}
-          />
-          <EditableField
-            labelName={`occupation`}
-            labelText="Occupation:"
-            defaultValue={occupation}
-            onUpdate={setOccupation}
-          />
-          <div className="mb-4">
+         {fields.map(({ name, label, state }) => (
             <EditableField
-              labelName={`phone`}
-              labelText="Phone:"
-              defaultValue={phone}
-              onUpdate={setPhone}
+              key={name}
+              labelName={name}
+              labelText={label}
+              defaultValue={state[0]}
+              onUpdate={state[1]}
             />
-          </div>
+          ))}
         </div>
         <div className="flex items-end justify-end mb-3">
           <button
